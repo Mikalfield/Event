@@ -1,0 +1,77 @@
+h1,h2,h3,h5 {
+    font-family: 'Taviraj', serif;
+    color: white;
+}
+
+p {
+    font-family: 'Montserrat', sans-serif;
+    color: lightgray;
+}
+
+a{
+    color: lightblue;
+}
+
+#map {
+   height: 150px;
+    /*width: 300px;*/
+}
+
+#expo-img{
+    width: inherit;
+    height: inherit;
+    margin-top: -15px;
+}
+
+#section-0{
+    border-bottom: solid thin blue;
+    background-color: #0f0f0f;
+
+}
+
+#section-5{
+    background-color: #0f0f0f;
+    border-top: solid thin blue;
+}
+
+#profile,#logo-ecetech,#logo-systra, #anchors{
+    display: none;
+
+}
+
+#canvas{
+    background-color: #333637;
+}
+
+.date-place{
+    color: white;
+    font-weight: bold;
+}
+
+
+
+@media (min-width: 768px) {
+    #anchors, #profile{
+        display: initial;
+    }
+
+    p {
+        font-size: 1.2em;
+    }
+}
+
+@media (min-width:992px) {
+    #logo-ecetech, #logo-systra{
+        display: initial;
+    }
+    
+}
+
+@media (min-width: 1200px) {
+    h1{
+        font-size: 1.7em;
+    }
+    p{
+        font-size: 1.5em;
+    }
+}
