@@ -41,6 +41,13 @@ a{
     font-weight: bolder;
 }
 
+.carousel-inner > .item > img,
+.carousel-inner > .item > a > img {
+    width: 30%;
+    margin: auto;
+    height: 300px;
+}
+
 #section-5{
     background-color: darkgrey;
     border-top: solid thin black;
@@ -53,6 +60,7 @@ a{
 
 #canvas{
     background-color: #ffffff;
+    padding-top: 50px;
 }
 
 .date-place{
