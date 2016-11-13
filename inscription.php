@@ -38,7 +38,7 @@
     </div>
 </nav>
 
-<!-- ceci est la première vrai section, on y explique la Nature de l'évenement en quelques mots-->
+<!-- Inscription à l'évenement si dessous-->
 <section id="form-section" class="col-xs-12">
 
     <div class="row">
@@ -86,14 +86,12 @@
 
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Jours de présence</label><br/>
-                <input type="checkbox" name="cosplay" value="Mercredi"> Mercredi
-                <input type="checkbox" name="cosplay" value="jeudi"> Jeudi
-                <input type="checkbox" name="cosplay" value="Vendredi"> vendredi
-                <input type="checkbox" name="cosplay" value="samedi"> Samedi
-                <input type="checkbox" name="cosplay" value="Dimanche"> Dimanche
+                <input type="checkbox" name="day[]" value="Mercredi"> Mercredi
+                <input type="checkbox" name="day[]" value="jeudi"> Jeudi
+                <input type="checkbox" name="day[]" value="Vendredi"> vendredi
+                <input type="checkbox" name="day[]" value="samedi"> Samedi
+                <input type="checkbox" name="day[]" value="Dimanche"> Dimanche
             </div>
-
-
 
             <div class="col-xs-11 col-xs-offset-1">
                 <input type="submit" class="btn confirm" value="envoyer">
