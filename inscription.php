@@ -33,30 +33,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     else
     {
         $firstname = test_input($_POST["name1"]);
+        if (!preg_match("/^[a-zA-Z ]*$/",$firstname))
+        {
+            $firstnameErr = "Only letters and white space allowed";
+        }
     }
    /* $firstname = test_input($_POST["name1"]); */
 
     if (empty($_POST["lastname"])) {
         $lastnameErr = "Nome de famille est requis";
-    } else {
+    }
+    else
+    {
         $lastname = test_input($_POST["lastname"]);
+        if (!preg_match("/^[a-zA-Z ]*$/",$lastname))
+        {
+            $lastnameErr= "Only letters and white space allowed";
+        }
     }
 
     if (empty($_POST["gender"])) {
         $addressErr = "Civilité est requis";
-    } else {
+    }
+    else
+    {
         $gender = test_input($_POST["gender"]);
     }
 
     if (empty($_POST["address"])) {
         $addressErr = "Addresse est requis";
-    } else {
+    }
+    else
+    {
         $address = test_input($_POST["address"]);
     }
 
     if (empty($_POST["city"])) {
         $cityErr = "Ville est requis";
-    } else {
+    }
+    else
+    {
         $city = test_input($_POST["city"]);
     }
 
@@ -70,6 +86,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $emailErr = "Email est requis";
     } else {
         $email = test_input($_POST["email"]);
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+        {
+            $emailErr = "Invalid email format";
+        }
     }
 
     if (empty($_POST["birthdate"])) {
@@ -80,7 +100,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
     if (empty($_POST["cosplay"])) {
         $codeErr = "situation de cosplay est requis";
-    } else {
+    }
+    else
+    {
         $cosplay = test_input($_POST["cosplay"]);
     }
 

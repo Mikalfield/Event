@@ -43,7 +43,7 @@
 
 
 
-
+<!--le caroussel des images -->
 <section id="section-2" class="col-xs-12">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
