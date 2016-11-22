@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Mikal FIELD CV </title>
+    <title>Insciption JapExp </title>
     <link rel="stylesheet"  href="css/bootstrap.css">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">
@@ -19,61 +19,60 @@
 
 <?php
 // define variables and set to empty values
-$firstname= $lastname= $gender = $address = $city = $code = $email = $birthdate = $cosplay =  "";
+$prenom= $nom= $genre = $adresse = $ville = $code = $email = $birthdate = $cosplay =  "";
 $firstnameErr= $lastnameErr= $genderErr = $addressErr = $cityErr = $codeErr = $emailErr = $birthdateErr = $cosplayErr =  "";
 /*$wednesday = $thursday = $friday = $saturday = $sunday = ""; */
 
 if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     /* vérification de chaque post pour savoir si l'information à correctement été envoyé ou non.*/
-    if (empty($_POST["name1"]))
+    if (empty($_POST["prenom"]))
     {
         $firstnameErr = "Prenom est requis";
     }
     else
     {
-        $firstname = test_input($_POST["name1"]);
-        if (!preg_match("/^[a-zA-Z ]*$/",$firstname))
+        $prenom = test_input($_POST["prenom"]);
+        if (!preg_match("/^[a-zA-Z ]*$/",$prenom))
         {
             $firstnameErr = "Only letters and white space allowed";
         }
     }
-   /* $firstname = test_input($_POST["name1"]); */
 
-    if (empty($_POST["lastname"])) {
-        $lastnameErr = "Nome de famille est requis";
+    if (empty($_POST["nom"])) {
+        $lastnameErr = "Nom de famille est requis";
     }
     else
     {
-        $lastname = test_input($_POST["lastname"]);
-        if (!preg_match("/^[a-zA-Z ]*$/",$lastname))
+        $nom = test_input($_POST["nom"]);
+        if (!preg_match("/^[a-zA-Z ]*$/",$nom))
         {
             $lastnameErr= "Only letters and white space allowed";
         }
     }
 
-    if (empty($_POST["gender"])) {
-        $addressErr = "Civilité est requis";
+    if (empty($_POST["genre"])) {
+        $genderErr = "Civilité est requis";
     }
     else
     {
-        $gender = test_input($_POST["gender"]);
+        $genre = test_input($_POST["genre"]);
     }
 
-    if (empty($_POST["address"])) {
+    if (empty($_POST["adresse"])) {
         $addressErr = "Addresse est requis";
     }
     else
     {
-        $address = test_input($_POST["address"]);
+        $adresse = test_input($_POST["adresse"]);
     }
 
-    if (empty($_POST["city"])) {
+    if (empty($_POST["ville"])) {
         $cityErr = "Ville est requis";
     }
     else
     {
-        $city = test_input($_POST["city"]);
+        $ville = test_input($_POST["ville"]);
     }
 
     if (empty($_POST["code"])) {
@@ -82,7 +81,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
         $code = test_input($_POST["code"]);
     }
 
-    if (empty($_POST["mail"])) {
+    if (empty($_POST["email"])) {
         $emailErr = "Email est requis";
     } else {
         $email = test_input($_POST["email"]);
@@ -99,18 +98,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
     }
 
     if (empty($_POST["cosplay"])) {
-        $codeErr = "situation de cosplay est requis";
+        $cosplayErr = "situation de cosplay est requis";
     }
     else
     {
         $cosplay = test_input($_POST["cosplay"]);
     }
 
-   /* $wednesday = test_input($_POST["day"][0]);
-    $thursday = test_input($_POST["day"][1]);
-    $friday = test_input($_POST["day"][2]);
-    $saturday = test_input($_POST["day"][3]);
-    $sunday = test_input($_POST["day"][4]); */
+
+    if (empty($_POST["mercredi"])){
+        $mercredi="0";
+    }else{
+        $mercredi = test_input($_POST["mercredi"]);
+    }
+    if (empty($_POST["jeudi"])){
+        $jeudi="0";
+    }else{
+        $jeudi = test_input($_POST["jeudi"]);
+    }
+
+    if (empty($_POST["vendredi"])){
+        $vendredi="0";
+    }else{
+        $vendredi = test_input($_POST["vendredi"]);
+    }
+    if (empty($_POST["samedi"])){
+        $samedi="0";
+    }else{
+        $samedi = test_input($_POST["samedi"]);
+    }
+    if (empty($_POST["dimanche"])){
+        $dimanche="0";
+    }else{
+        $dimanche = test_input($_POST["dimanche"]);
+    }
+
+
+
+try {
+$bdd = new PDO('mysql:host=localhost;dbname=event', 'root', '');// Connexion à MySQL en UTF-8
+
+}
+catch(PDOException $e) {
+    $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+    die($msg);
+
+}
+
+    $req = 'INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
+            VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);';
+    $prep = $bdd->prepare($req);
+
+    $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
+    $prep->bindValue(':prenom',$prenom,PDO::PARAM_STR);
+    $prep->bindValue(':nom',$nom,PDO::PARAM_STR);
+    $prep->bindValue(':adresse',$adresse,PDO::PARAM_STR);
+    $prep->bindValue(':ville',$ville,PDO::PARAM_STR);
+    $prep->bindValue(':code',$code,PDO::PARAM_STR);
+    $prep->bindValue(':email',$email,PDO::PARAM_STR);
+    $prep->bindValue(':birthdate',$birthdate,PDO::PARAM_STR);
+    $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_INT);
+    $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_INT);
+    $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_INT);
+    $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_INT);
+    $prep->bindValue(':samedi',$samedi,PDO::PARAM_INT);
+    $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_INT);
+
+    $result = $prep->execute();
+    $arrAll = $prep->fetchAll();
+    $prep->closeCursor();
+    $prep=NULL;
+
+
 }
 
 function test_input($data) {
@@ -171,28 +230,28 @@ function test_input($data) {
 
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Civilité</label><br/>
-                <input type="radio" name="gender" value="monsieur"> M.
-                <input type="radio" name="gender" value="madame"> Mme.
+                <input type="radio" name="genre" value="1"> M.
+                <input type="radio" name="genre" value="2"> Mme.
                 <span class="error">* <?php echo $genderErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Prénom</label><br/>
-                <input type="text" name="name1" >
+                <input type="text" name="prenom" >
                 <span class="error">* <?php echo $firstnameErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Nom</label><br/>
-                <input type="text" name="lastname" >
+                <input type="text" name="nom" >
                 <span class="error">* <?php echo $lastnameErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Adresse</label><br/>
-                <input type="text" name="address" >
+                <input type="text" name="adresse" >
                 <span class="error">* <?php echo $addressErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Ville</label><br/>
-                <input type="text" name="city" >
+                <input type="text" name="ville" >
                 <span class="error">* <?php echo $cityErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
@@ -202,7 +261,7 @@ function test_input($data) {
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Email</label><br/>
-                <input type="email" name="mail" >
+                <input type="email" name="email" >
                 <span class="error">* <?php echo $emailErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
@@ -212,36 +271,24 @@ function test_input($data) {
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Cosplayer</label><br/>
-                <input type="radio" name="cosplay" value="true"> Oui
-                <input type="radio" name="cosplay" value="false"> Non
+                <input type="radio" name="cosplay" value="1"> Oui
+                <input type="radio" name="cosplay" value="2"> Non
                 <span class="error">* <?php echo $cosplayErr;?></span>
             </div>
 
-        <?php   /* <div class="col-xs-11 col-xs-offset-1">
+             <div class="col-xs-11 col-xs-offset-1">
                 <label>Jours de présence</label><br/>
-                <input type="checkbox" name="day[]" value="Mercredi"> Mercredi
-                <input type="checkbox" name="day[]" value="jeudi"> Jeudi
-                <input type="checkbox" name="day[]" value="Vendredi"> vendredi
-                <input type="checkbox" name="day[]" value="samedi"> Samedi
-                <input type="checkbox" name="day[]" value="Dimanche"> Dimanche
-            </div> */ ?>
+                <input type="checkbox" name="mercredi" value="1"> Mercredi
+                <input type="checkbox" name="jeudi" value="1"> Jeudi
+                <input type="checkbox" name="vendredi" value="1"> vendredi
+                <input type="checkbox" name="samedi" value="1"> Samedi
+                <input type="checkbox" name="dimanche" value="1"> Dimanche
+            </div>
 
             <div class="col-xs-11 col-xs-offset-1">
-                <input type="submit" class="btn confirm" value="envoyer">
+                <input type="submit" class="btnconfirm" value="envoyer">
             </div>
         </form>
-        <?php
-        echo "<h2>Your Input:</h2>";
-        echo $firstname;
-        echo "<br>";
-        echo $lastname;
-        echo "<br>";
-        echo $gender;
-        echo "<br>";
-        echo $birthdate;
-        echo "<br>";
-        echo $email;
-        ?>
     </div>
 </section>
 
@@ -266,8 +313,8 @@ function test_input($data) {
 </section>
 
 </body>
-
-
+<!--
+-->
 
 
 </html>
