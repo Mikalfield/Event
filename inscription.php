@@ -107,28 +107,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 
     if (empty($_POST["mercredi"])){
-        $mercredi="0";
+        $mercredi="absent";
     }else{
         $mercredi = test_input($_POST["mercredi"]);
     }
     if (empty($_POST["jeudi"])){
-        $jeudi="0";
+        $jeudi="absent";
     }else{
         $jeudi = test_input($_POST["jeudi"]);
     }
 
     if (empty($_POST["vendredi"])){
-        $vendredi="0";
+        $vendredi="absent";
     }else{
         $vendredi = test_input($_POST["vendredi"]);
     }
     if (empty($_POST["samedi"])){
-        $samedi="0";
+        $samedi="absent";
     }else{
         $samedi = test_input($_POST["samedi"]);
     }
     if (empty($_POST["dimanche"])){
-        $dimanche="0";
+        $dimanche="absent";
     }else{
         $dimanche = test_input($_POST["dimanche"]);
     }
@@ -157,15 +157,15 @@ catch(PDOException $e) {
     $prep->bindValue(':code',$code,PDO::PARAM_STR);
     $prep->bindValue(':email',$email,PDO::PARAM_STR);
     $prep->bindValue(':birthdate',$birthdate,PDO::PARAM_STR);
-    $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_INT);
-    $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_INT);
-    $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_INT);
-    $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_INT);
-    $prep->bindValue(':samedi',$samedi,PDO::PARAM_INT);
-    $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_INT);
+    $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_STR);
+    $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_STR);
+    $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_STR);
+    $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_STR);
+    $prep->bindValue(':samedi',$samedi,PDO::PARAM_STR);
+    $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_STR);
 
     $result = $prep->execute();
-    $arrAll = $prep->fetchAll();
+
     $prep->closeCursor();
     $prep=NULL;
 
@@ -213,7 +213,7 @@ function test_input($data) {
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Accueil</a></li>
                 <li class="active"><a href="inscription.php">Inscription</a></li>
-                <li><a href="#">Login admin</a></li>
+                <li><a href="pageadmin.php">Login admin</a></li>
             </ul>
         </div>
     </div>
@@ -230,8 +230,8 @@ function test_input($data) {
 
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Civilité</label><br/>
-                <input type="radio" name="genre" value="1"> M.
-                <input type="radio" name="genre" value="2"> Mme.
+                <input type="radio" name="genre" value="M"> M.
+                <input type="radio" name="genre" value="Mme"> Mme.
                 <span class="error">* <?php echo $genderErr;?></span>
             </div>
             <div class="col-xs-11 col-xs-offset-1">
@@ -271,18 +271,18 @@ function test_input($data) {
             </div>
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Cosplayer</label><br/>
-                <input type="radio" name="cosplay" value="1"> Oui
-                <input type="radio" name="cosplay" value="2"> Non
+                <input type="radio" name="cosplay" value="oui"> Oui
+                <input type="radio" name="cosplay" value="non"> Non
                 <span class="error">* <?php echo $cosplayErr;?></span>
             </div>
 
              <div class="col-xs-11 col-xs-offset-1">
                 <label>Jours de présence</label><br/>
-                <input type="checkbox" name="mercredi" value="1"> Mercredi
-                <input type="checkbox" name="jeudi" value="1"> Jeudi
-                <input type="checkbox" name="vendredi" value="1"> vendredi
-                <input type="checkbox" name="samedi" value="1"> Samedi
-                <input type="checkbox" name="dimanche" value="1"> Dimanche
+                <input type="checkbox" name="mercredi" value="present"> Mercredi
+                <input type="checkbox" name="jeudi" value="present"> Jeudi
+                <input type="checkbox" name="vendredi" value="present"> vendredi
+                <input type="checkbox" name="samedi" value="present"> Samedi
+                <input type="checkbox" name="dimanche" value="present"> Dimanche
             </div>
 
             <div class="col-xs-11 col-xs-offset-1">

@@ -32,7 +32,7 @@
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Accueil</a></li>
                     <li><a href="inscription.php">Inscription</a></li>
-                    <li><a href="#">Login admin</a></li>
+                    <li><a href="pageadmin.php">Login admin</a></li>
                 </ul>
             </div>
         </div>
