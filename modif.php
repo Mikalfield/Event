@@ -16,14 +16,57 @@
 
 <body id="canvas" class="row" ">
 
-
 <?php
-// define variables and set to empty values
-$prenom= $nom= $genre = $adresse = $ville = $code = $email = $birthdate = $cosplay =  "";
-$firstnameErr= $lastnameErr= $genderErr = $addressErr = $cityErr = $codeErr = $emailErr = $birthdateErr = $cosplayErr =  "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST")
-{
+$id = $prenom = $nom = $genre = $adresse = $ville = $code = $email = $birthdate = $cosplay =  "";
+$firstnameErr = $lastnameErr = $genderErr = $addressErr = $cityErr = $codeErr = $emailErr = $birthdateErr = $cosplayErr =  "";
+$wednesday = $thursday = $friday = $saturday = $sunday = "";
+
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+
+    $id = $_GET["gig"];
+    try {
+        $bdd = new PDO('mysql:host=localhost;dbname=event', 'root', '');// Connexion à MySQL en UTF-8
+
+    }
+    catch(PDOException $e) {
+        $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+        die($msg);
+        echo $msg ;
+
+    }
+
+    $req = "SELECT * FROM inscription WHERE id = :id;";
+    $prep = $bdd->prepare($req);
+
+    $prep->bindValue(':id',$id,PDO::PARAM_INT);
+
+    $prep->execute();
+    $data = $prep->fetch(PDO::FETCH_ASSOC);
+    $prenom = $data["prenom"];
+    $nom = $data["nom"];
+    $genre = $data["genre"];
+    $adresse = $data["adresse"];
+    $ville = $data["ville"];
+    $code = $data["code"];
+    $email = $data["email"];
+    $birthdate = $data["birthdate"];
+    $cosplay =$data["cosplay"];
+    $mercredi = $data["mercredi"];
+    $jeudi = $data["jeudi"];
+    $vendredi = $data["vendredi"];
+    $samedi = $data["samedi"];
+    $dimanche = $data["dimanche"];
+    $prep->closeCursor();
+
+
+
+}
+elseif($_SERVER["REQUEST_METHOD"] == "POST"){
+
+    if(isset($_POST["identity"])){
+        $id = $_POST["identity"];
+    }
     /* vérification de chaque post pour savoir si l'information à correctement été envoyé ou non.*/
     if (empty($_POST["prenom"]))
     {
@@ -134,25 +177,38 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 
 
 
-try {
-$bdd = new PDO('mysql:host=localhost;dbname=event', 'root', '');// Connexion à MySQL en UTF-8
+    try {
+        $bdd = new PDO('mysql:host=localhost;dbname=event', 'root', '');// Connexion à MySQL en UTF-8
 
-}
-catch(PDOException $e) {
-    $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
-    die($msg);
+    }
+    catch(PDOException $e) {
+        $msg = 'ERREUR PDO dans ' . $e->getFile() . ' L.' . $e->getLine() . ' : ' . $e->getMessage();
+        die($msg);
 
-}
+    }
 
-
-
-    $req = 'INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
-            VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);';
+    $req = 'UPDATE inscription SET
+    prenom = :prenom, 
+    nom = :nom, 
+    genre = :genre,
+    adresse = :adresse, 
+    code = :code,
+    ville = :ville,
+    email = :email, 
+    birthdate = :birthdate, 
+    cosplay = :cosplay, 
+    mercredi = :mercredi, 
+    jeudi = :jeudi, 
+    vendredi = :vendredi,
+    samedi = :samedi, 
+    dimanche = :dimanche
+    WHERE id= :id;';
     $prep = $bdd->prepare($req);
 
-    $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
+
     $prep->bindValue(':prenom',$prenom,PDO::PARAM_STR);
     $prep->bindValue(':nom',$nom,PDO::PARAM_STR);
+    $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
     $prep->bindValue(':adresse',$adresse,PDO::PARAM_STR);
     $prep->bindValue(':ville',$ville,PDO::PARAM_STR);
     $prep->bindValue(':code',$code,PDO::PARAM_STR);
@@ -164,16 +220,18 @@ catch(PDOException $e) {
     $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_STR);
     $prep->bindValue(':samedi',$samedi,PDO::PARAM_STR);
     $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_STR);
-
+    $prep->bindValue(':id',$id,PDO::PARAM_INT);
 
     if(empty($firstnameErr)&&empty($lastnameErr)&&empty($genderErr)&&empty($cosplayErr)&&empty($codeErr)&&empty($cityErr)&&empty($birthdateErr)){
         $result = $prep->execute();
     }
-
     $prep->closeCursor();
     $prep=NULL;
+    header("location:pageadmin.php");
 
-
+}
+else{
+    header("location:pageadmin.php");
 }
 
 function test_input($data) {
@@ -182,23 +240,9 @@ function test_input($data) {
     $data = htmlspecialchars($data);
     return $data;
 }
+
+
 ?>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <!-- Cette Partie est le navbar, il contient une image et indique sur quelle page on se trouve
@@ -227,10 +271,12 @@ function test_input($data) {
 <section id="form-section" class="col-xs-12">
 
     <div class="row">
-        <h1 class="col-xs-11 col-xs-offset-1">INSCRIPTION A LA JAPAN EXPO</h1>
+        <h1 class="col-xs-11 col-xs-offset-1">MODIFICATION INSCRIPTION </h1>
         <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
             <!-- htmlspecialchars($_SERVER["PHP_SELF"]); est utilisé pour renvoyer les données du formulaire à la meme page
              Cependant cela peut être hacké, donc on ajout le special chars pour éviter tout symbol spécial-->
+
+
 
             <div class="col-xs-11 col-xs-offset-1">
                 <label>Civilité</label><br/>
@@ -288,25 +334,25 @@ function test_input($data) {
                 <span class="error">* <?php echo $cosplayErr;?></span>
             </div>
 
-             <div class="col-xs-11 col-xs-offset-1">
+            <div class="col-xs-11 col-xs-offset-1">
                 <label>Jours de présence</label><br/>
-                 <input type="checkbox" name="mercredi" value="present"
-                     <?php if (isset($mercredi) && $mercredi=="present") echo "checked";?>
-                 > Mercredi
-                 <input type="checkbox" name="jeudi" value="present"
-                     <?php if (isset($jeudi) && $jeudi=="present") echo "checked";?>
-                 > Jeudi
-                 <input type="checkbox" name="vendredi" value="present"
-                     <?php if (isset($vendredi) && $vendredi=="present") echo "checked";?>
-                 > vendredi
-                 <input type="checkbox" name="samedi" value="present"
-                     <?php if (isset($samedi) && $samedi=="present") echo "checked";?>
-                 > Samedi
-                 <input type="checkbox" name="dimanche" value="present"
-                     <?php if (isset($dimanche) && $dimanche=="present") echo "checked";?>
-                 > Dimanche
+                <input type="checkbox" name="mercredi" value="present"
+                    <?php if (isset($mercredi) && $mercredi=="present") echo "checked";?>
+                > Mercredi
+                <input type="checkbox" name="jeudi" value="present"
+                    <?php if (isset($jeudi) && $jeudi=="present") echo "checked";?>
+                > Jeudi
+                <input type="checkbox" name="vendredi" value="present"
+                    <?php if (isset($vendredi) && $vendredi=="present") echo "checked";?>
+                > vendredi
+                <input type="checkbox" name="samedi" value="present"
+                    <?php if (isset($samedi) && $samedi=="present") echo "checked";?>
+                > Samedi
+                <input type="checkbox" name="dimanche" value="present"
+                    <?php if (isset($dimanche) && $dimanche=="present") echo "checked";?>
+                > Dimanche
             </div>
-
+            <input type="hidden" name="identity" value="<?php echo $id;?>" />
             <div class="col-xs-11 col-xs-offset-1">
                 <input type="submit" class="btnconfirm" value="envoyer">
             </div>

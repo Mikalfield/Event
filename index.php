@@ -2,11 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-<<<<<<< HEAD
-    <title>Anto FIELD CV </title>
-=======
     <title>Acceuil JapExp </title>
->>>>>>> BackendTrials
     <link rel="stylesheet"  href="css/bootstrap.css">
     <link rel="stylesheet" href="css/font-awesome.css">
     <link rel="stylesheet" href="css/font-awesome.min.css">

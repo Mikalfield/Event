@@ -96,10 +96,10 @@
                             <td>".$li["vendredi"]."</td> 
                             <td>".$li["samedi"]."</td> 
                             <td>".$li["dimanche"]."</td> 
-                            <td><a href='modif.php?gig=".$li["id"]."'><img src='modif.png'/></td></a> 
-                            <td><a href='supp.php?gig=".$li["id"]."'><img src='supp.png'/></td></a> 
-                            <td><a href='valid.php?gig=".$li["id"]."'><img src='valid.png'/></td></a> 
-                            <td><a href='refu.php?gig=".$li["id"]."'><img src='refu.png'/></td></a>  
+                            <td><a href='modif.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/Modif.png'/></td></a> 
+                            <td><a href='suppr.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/suppr.png'/></td></a> 
+                            <td><a href='valid.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/valid.png'/></td></a> 
+                            <td><a href='refu.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/refu.png'/></td></a>   
                       </tr>";
 
 
@@ -169,10 +169,10 @@
                             <td>".$li["vendredi"]."</td> 
                             <td>".$li["samedi"]."</td> 
                             <td>".$li["dimanche"]."</td> 
-                            <td><a href='modif.php?gig=".$li["id"]."'><img src='modif.png'/></td></a> 
-                            <td><a href='supp.php?gig=".$li["id"]."'><img src='supp.png'/></td></a> 
-                            <td><a href='valid.php?gig=".$li["id"]."'><img src='valid.png'/></td></a> 
-                            <td><a href='refu.php?gig=".$li["id"]."'><img src='refu.png'/></td></a> 
+                            <td><a href='modif.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/Modif.png'/></td></a> 
+                            <td><a href='suppr.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/suppr.png'/></td></a> 
+                            <td><a href='valid.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/valid.png'/></td></a> 
+                            <td><a href='refu.php?gig=".$li["id"]."'><img class='img-responsive admin-image' src='image/refu.png'/></td></a> 
                       </tr>";
 
 
@@ -244,10 +244,10 @@
                             <td>".$li["vendredi"]."</td> 
                             <td>".$li["samedi"]."</td> 
                             <td>".$li["dimanche"]."</td> 
-                            <td><a href='modif.php?gig=".$li["id"]."'><img src='modif.png'/></td></a> 
-                            <td><a href='supp.php?gig=".$li["id"]."'><img src='supp.png'/></td></a> 
-                            <td><a href='valid.php?gig=".$li["id"]."'><img src='valid.png'/></td></a> 
-                            <td><a href='refu.php?gig=".$li["id"]."'><img src='refu.png'/></td></a> 
+                            <td><a href='modif.php?gig=".$li["id"]."'><img class='img-responsive' src='image/Modif.png'/></td></a> 
+                            <td><a href='suppr.php?gig=".$li["id"]."'><img class='img-responsive' src='image/suppr.png'/></td></a> 
+                            <td><a href='valid.php?gig=".$li["id"]."'><img class='img-responsive' src='image/valid.png'/></td></a> 
+                            <td><a href='refu.php?gig=".$li["id"]."'><img class='img-responsive' src='image/refu.png'/></td></a>  
                       </tr>";
 
 
