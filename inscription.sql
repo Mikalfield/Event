@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client :  127.0.0.1
--- Généré le :  Lun 21 Novembre 2016 à 11:41
+-- Généré le :  Lun 05 Décembre 2016 à 09:27 
 -- Version du serveur :  5.7.11
 -- Version de PHP :  5.6.19
 
@@ -35,14 +35,14 @@ CREATE TABLE `inscription` (
   `code` varchar(10) NOT NULL,
   `email` varchar(60) NOT NULL,
   `birthdate` tinytext NOT NULL,
-  `cosplay` tinyint(1) NOT NULL,
-  `mercredi` tinyint(1) DEFAULT '0',
-  `jeudi` tinyint(1) NOT NULL DEFAULT '0',
-  `vendredi` tinyint(1) DEFAULT '0',
-  `samedi` tinyint(1) NOT NULL DEFAULT '0',
-  `dimanche` tinyint(1) NOT NULL DEFAULT '0',
+  `cosplay` varchar(255) DEFAULT NULL, 
+  `mercredi` varchar(255) DEFAULT NULL, 
+  `jeudi` varchar(255) DEFAULT NULL, 
+  `vendredi` varchar(255) DEFAULT NULL, 
+  `samedi` varchar(255) DEFAULT NULL, 
+  `dimanche` varchar(255) DEFAULT NULL,
   `validation` tinyint(1) DEFAULT '0',
-  `genre` tinyint(4) DEFAULT '0'
+  `genre` tinytext 
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -50,8 +50,10 @@ CREATE TABLE `inscription` (
 --
 
 INSERT INTO `inscription` (`id`, `prenom`, `nom`, `adresse`, `ville`, `code`, `email`, `birthdate`, `cosplay`, `mercredi`, `jeudi`, `vendredi`, `samedi`, `dimanche`, `validation`, `genre`) VALUES
-(4, 'Arnold', 'Masselin', '90 rue Lakanal', 'Rueil_Malmaison', '92500', 'nolf@gmail.com', '06/07/1992', 1, 0, 1, 0, 1, 1, 0, 1);
-
+(8, 'Geraud', 'Masselin', '22 boulvard Jean', 'Cergy', '97282', 'geraud.mas@gmail.com', '06/05/1995', 'non', 'absent', 'present', 'absent', 'present', 'absent', 1, 'M'), 
+(9, 'Ars', 'Camille', '9 rue lakanal', 'ST Cloud', '92210', 'arccam@yahoo.fr', '1992', 'oui', 'absent', 'absent', 'present', 'absent', 'present', 0, 'Mme'), 
+(10, 'bla', 'bla', 'bla', 'bla', '42215', 'bla@gmail.com', '15/25/1995', 'oui', 'absent', 'absent', 'absent', 'absent', 'present', 2, 'Mme'); 
+ 
 --
 -- Index pour les tables exportées
 --
@@ -70,7 +72,7 @@ ALTER TABLE `inscription`
 -- AUTO_INCREMENT pour la table `inscription`
 --
 ALTER TABLE `inscription`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
