@@ -9,7 +9,7 @@
 /// 4d) if it a post, we modify an existing subscriber with the information inside the json from the request
 /// 5) We send the appropriate http response with a json encode if need be
 
- $method = $_SERVER['REQUEST_METHOD'];
+$method = $_SERVER['REQUEST_METHOD'];
 $request = explode('/', trim($_SERVER['PATH_INFO'],'/'));
 $id = array_shift($request);
 $input = json_decode(file_get_contents('php://input'),true);
@@ -49,6 +49,121 @@ switch($method){
         $prep->bindValue(':id',$id,PDO::PARAM_INT);
         $prep->execute();
         break;
+
+    case 'PUT' :
+
+        //Recuperé Le JSon $input
+        //Traduire Le Json
+        $prenom=$input->prenom;
+        $nom=$input->nom;
+        $genre=$input->genre;
+        $adresse=$input->adresse;
+        $ville=$input->ville;
+        $code=$input->code;
+        $email=$input->email;
+        $birthdate=$input->birthdate;
+        $cosplay=$input->cosplay;
+        $err = "erreur : ";
+
+        //Verifier chaque Donné une par une 
+        if ($prenom=="") {
+            $err .= "Prenom requis / ";
+        }
+        else {
+            if (!preg_match("/^[a-zA-Z ]*$/",$prenom)){
+                $err .= "Pas de caracterse speciaux / ";
+            }
+        }
+    
+        if ($nom=="") {
+            $err .= "Nom de famille requis / ";
+        }
+        else {
+            if (!preg_match("/^[a-zA-Z ]*$/",$nom)){
+                $err .= "Pas de caracterse speciaux / ";
+            }
+        }
+    
+        if ($genre=="") {
+            $err .= "Civilité requis / ";
+        }
+    
+        if ($adresse=="") {
+            $err .= "Addresse requis / ";
+        }
+    
+        if ($ville=="") {
+            $err .= "Ville requis / ";
+        }
+    
+        if ($code=="") {
+            $err .= "Code Postal requis / ";
+        }
+    
+        if ($email=="") {
+            $err .= "Email est requis / ";
+        }
+        else { 
+            if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+            {
+                $err .= "Format email invalid / ";
+            }
+        }
+    
+        if ($birthdate=="") {
+            $err .= "Date de naissance requis / ";
+        }
+    
+        if ($cosplay=="") {
+            $err .= "Situation de cosplay requis / ";
+        }
+        
+        //Jours
+        if ($mercredi==""){
+            $mercredi="absent";
+        }
+
+        if ($jeudi==""){
+            $jeudi="absent";
+        }
+    
+        if ($vendredi==""){
+            $vendredi="absent";
+        }
+        if ($samedi==""){
+            $samedi="absent";
+        }
+        if ($dimanche==""){
+            $dimanche="absent";
+        }
+
+
+        //Re formulé sous une requet SQL
+         $req = 'INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
+            VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);';
+        $prep = $bdd->prepare($req);
+    
+        $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
+        $prep->bindValue(':prenom',$prenom,PDO::PARAM_STR);
+        $prep->bindValue(':nom',$nom,PDO::PARAM_STR);
+        $prep->bindValue(':adresse',$adresse,PDO::PARAM_STR);
+        $prep->bindValue(':ville',$ville,PDO::PARAM_STR);
+        $prep->bindValue(':code',$code,PDO::PARAM_STR);
+        $prep->bindValue(':email',$email,PDO::PARAM_STR);
+        $prep->bindValue(':birthdate',$birthdate,PDO::PARAM_STR);
+        $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_STR);
+        $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_STR);
+        $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_STR);
+        $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_STR);
+        $prep->bindValue(':samedi',$samedi,PDO::PARAM_STR);
+        $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_STR);
+
+        //Posté
+        $prep->execute();
+        break;
+    
+        
+    case 'POST' :
 
 
 }
