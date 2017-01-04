@@ -67,55 +67,55 @@ switch($method){
 
         //Verifier chaque Donné une par une 
         if ($prenom=="") {
-            $err .= "Prenom requis / ";
+            $err .= "Prenom requis ";
         }
         else {
             if (!preg_match("/^[a-zA-Z ]*$/",$prenom)){
-                $err .= "Pas de caracterse speciaux / ";
+                $err .= "Pas de caracterse speciaux ";
             }
         }
     
         if ($nom=="") {
-            $err .= "Nom de famille requis / ";
+            $err .= "Nom de famille requis ";
         }
         else {
             if (!preg_match("/^[a-zA-Z ]*$/",$nom)){
-                $err .= "Pas de caracterse speciaux / ";
+                $err .= "Pas de caracterse speciaux ";
             }
         }
     
         if ($genre=="") {
-            $err .= "Civilité requis / ";
+            $err .= "Civilité requis ";
         }
     
         if ($adresse=="") {
-            $err .= "Addresse requis / ";
+            $err .= "Addresse requis ";
         }
     
         if ($ville=="") {
-            $err .= "Ville requis / ";
+            $err .= "Ville requis ";
         }
     
         if ($code=="") {
-            $err .= "Code Postal requis / ";
+            $err .= "Code Postal requis ";
         }
     
         if ($email=="") {
-            $err .= "Email est requis / ";
+            $err .= "Email est requis ";
         }
         else { 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                $err .= "Format email invalid / ";
+                $err .= "Format email invalid ";
             }
         }
     
         if ($birthdate=="") {
-            $err .= "Date de naissance requis / ";
+            $err .= "Date de naissance requis ";
         }
     
         if ($cosplay=="") {
-            $err .= "Situation de cosplay requis / ";
+            $err .= "Situation de cosplay requis ";
         }
         
         //Jours
@@ -137,29 +137,36 @@ switch($method){
             $dimanche="absent";
         }
 
+        if($err == "erreur : ") {
 
-        //Re formulé sous une requet SQL
-         $req = 'INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
-            VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);';
-        $prep = $bdd->prepare($req);
+            //Re formulé sous une requet SQL
+             $req = 'INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
+             VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);';
+            $prep = $bdd->prepare($req);
     
-        $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
-        $prep->bindValue(':prenom',$prenom,PDO::PARAM_STR);
-        $prep->bindValue(':nom',$nom,PDO::PARAM_STR);
-        $prep->bindValue(':adresse',$adresse,PDO::PARAM_STR);
-        $prep->bindValue(':ville',$ville,PDO::PARAM_STR);
-        $prep->bindValue(':code',$code,PDO::PARAM_STR);
-        $prep->bindValue(':email',$email,PDO::PARAM_STR);
-        $prep->bindValue(':birthdate',$birthdate,PDO::PARAM_STR);
-        $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_STR);
-        $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_STR);
-        $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_STR);
-        $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_STR);
-        $prep->bindValue(':samedi',$samedi,PDO::PARAM_STR);
-        $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_STR);
+            $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
+            $prep->bindValue(':prenom',$prenom,PDO::PARAM_STR);
+            $prep->bindValue(':nom',$nom,PDO::PARAM_STR);
+            $prep->bindValue(':adresse',$adresse,PDO::PARAM_STR);
+            $prep->bindValue(':ville',$ville,PDO::PARAM_STR);
+            $prep->bindValue(':code',$code,PDO::PARAM_STR);
+            $prep->bindValue(':email',$email,PDO::PARAM_STR);
+            $prep->bindValue(':birthdate',$birthdate,PDO::PARAM_STR);
+            $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_STR);
+            $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_STR);
+            $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_STR);
+            $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_STR);
+            $prep->bindValue(':samedi',$samedi,PDO::PARAM_STR);
+            $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_STR);
+    
+            //Posté
+            $prep->execute();
 
-        //Posté
-        $prep->execute();
+        }
+        else {
+            echo json_encode($err);
+        }    
+
         break;
     
         
