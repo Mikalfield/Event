@@ -14,6 +14,10 @@
 
 </head>
 
+<?php 
+    header("refresh:1200;url=check.php");
+?> 
+
 <body id="canvas" class="row" style="margin-top: 0px;">
 
 <!-- Cette Partie est le navbar, il contient une image et indique sur quelle page on se trouve
@@ -26,7 +30,7 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#"><img id="expo-img"class="img-responsive" src="image/paris.png"/></a>
+            <a class="navbar-brand" href="#"><img id="expo-img" class="img-responsive" src="image/paris.png"/></a>
         </div>
         <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
@@ -257,8 +261,6 @@
         ?>
     </table>
 </div>
-
-
 
 
 
