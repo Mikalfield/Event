@@ -50,9 +50,9 @@ switch($method){
         $prep->execute();
         break;
 
-    case 'PUT' :
+    case 'POST' :
 
-        //Recuperé Le JSon $input
+        //Recuperé Le Json $input
         //Traduire Le Json
         $prenom=$input->prenom;
         $nom=$input->nom;
@@ -63,59 +63,65 @@ switch($method){
         $email=$input->email;
         $birthdate=$input->birthdate;
         $cosplay=$input->cosplay;
+        $mercredi=$input->mercredi;
+        $jeudi=$input->jeudi;
+        $vendredi=$input->vendredi;
+        $samedi=$input->samedi;
+        $dimanche=$input->dimanche;
         $err = "erreur : ";
+
 
         //Verifier chaque Donné une par une 
         if ($prenom=="") {
-            $err .= "Prenom requis ";
+            $err .= "Prenom requis | ";
         }
         else {
             if (!preg_match("/^[a-zA-Z ]*$/",$prenom)){
-                $err .= "Pas de caracterse speciaux ";
+                $err .= "Pas de caracterse speciaux | ";
             }
         }
     
         if ($nom=="") {
-            $err .= "Nom de famille requis ";
+            $err .= "Nom de famille requis | ";
         }
         else {
             if (!preg_match("/^[a-zA-Z ]*$/",$nom)){
-                $err .= "Pas de caracterse speciaux ";
+                $err .= "Pas de caracterse speciaux | ";
             }
         }
     
         if ($genre=="") {
-            $err .= "Civilité requis ";
+            $err .= "Civilité requis | ";
         }
     
         if ($adresse=="") {
-            $err .= "Addresse requis ";
+            $err .= "Addresse requis | ";
         }
     
         if ($ville=="") {
-            $err .= "Ville requis ";
+            $err .= "Ville requis | ";
         }
     
         if ($code=="") {
-            $err .= "Code Postal requis ";
+            $err .= "Code Postal requis | ";
         }
     
         if ($email=="") {
-            $err .= "Email est requis ";
+            $err .= "Email est requis | ";
         }
         else { 
             if (!filter_var($email, FILTER_VALIDATE_EMAIL))
             {
-                $err .= "Format email invalid ";
+                $err .= "Format email invalid | ";
             }
         }
     
         if ($birthdate=="") {
-            $err .= "Date de naissance requis ";
+            $err .= "Date de naissance requis | ";
         }
     
         if ($cosplay=="") {
-            $err .= "Situation de cosplay requis ";
+            $err .= "Situation de cosplay requis | ";
         }
         
         //Jours
@@ -170,7 +176,150 @@ switch($method){
         break;
     
         
-    case 'POST' :
+    case 'PUT' :
+
+        //recupéré l'id $id
+
+        //Verifier si l'id existe
+        if($id!=null){
+            $req = "SELECT * FROM inscription WHERE id = $id";
+            $prep = $bdd->prepare($req);
+            $prep->execute();
+            $resultsid=$prep->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else{
+            echo json_encode("erreur d'id");
+        }
+
+        //recupéré le Json $input
+
+        //Traduire Le Json
+        $prenom=$input->prenom;
+        $nom=$input->nom;
+        $genre=$input->genre;
+        $adresse=$input->adresse;
+        $ville=$input->ville;
+        $code=$input->code;
+        $email=$input->email;
+        $birthdate=$input->birthdate;
+        $cosplay=$input->cosplay;
+        $mercredi=$input->mercredi;
+        $jeudi=$input->jeudi;
+        $vendredi=$input->vendredi;
+        $samedi=$input->samedi;
+        $dimanche=$input->dimanche;
+        $validation=$input->validation;
+
+        //Recupéré les donné de la bdd de l'id
+
+        //Traduire Le Json
+        $prenomId=$resultsid->prenom;
+        $nomId=$resultsid->nom;
+        $genreId=$resultsid->genre;
+        $adresseId=$resultsid->adresse;
+        $villeId=$resultsid->ville;
+        $codeId=$resultsid->code;
+        $emailId=$resultsid->email;
+        $birthdateId=$resultsid->birthdate;
+        $cosplayId=$resultsid->cosplay;
+        $mercrediId=$resultsid->mercredi;
+        $jeudiId=$resultsid->jeudi;
+        $vendrediId=$resultsid->vendredi;
+        $samediId=$resultsid->samedi;
+        $dimancheId=$resultsid->dimanche;
+        $validationId=$resultsid->validation;
+        
+        //Comparé les info
+        if($prenom == ""){
+            $prenom = $prenomId;
+        }
+        if($nom == ""){
+            $nom = $nomId;
+        }
+        if($genre == ""){
+            $genre = $genreId;
+        }
+        if($adresse == ""){
+            $adresse = $adresseId;
+        }
+        if($ville == ""){
+            $ville = $villeId;
+        }
+        if($code == ""){
+            $code = $codeId;
+        }
+        if($email == ""){
+            $email = $emailId;
+        }
+        if($birthdate == ""){
+            $birthdate = $birthdateId;
+        }
+        if($cosplay == ""){
+            $cosplay = $cosplayId;
+        }
+        //jours
+        if($mercredi == ""){
+            $mercredi = $mercrediId;
+        }
+        if($jeudi == ""){
+            $jeudi = $jeudiId;
+        }
+        if($vendredi == ""){
+            $vendredi = $vendrediId;
+        }
+        if($samedi == ""){
+            $samedi = $samediId;
+        }
+        if($dimanche == ""){
+            $dimanche = $dimancheId;
+        }
+        if($validation == ""){
+            $validation = $validationId;
+        }
+
+
+        //update en sql
+        $req = 'UPDATE inscription SET
+        prenom = :prenom, 
+        nom = :nom, 
+        genre = :genre,
+        adresse = :adresse, 
+        code = :code,
+        ville = :ville,
+        email = :email, 
+        birthdate = :birthdate, 
+        cosplay = :cosplay, 
+        mercredi = :mercredi, 
+        jeudi = :jeudi, 
+        vendredi = :vendredi,
+        samedi = :samedi, 
+        dimanche = :dimanche,
+        validation = :validation
+        WHERE id= :id;';
+        $prep = $bdd->prepare($req);
+    
+    
+        $prep->bindValue(':prenom',$prenom,PDO::PARAM_STR);
+        $prep->bindValue(':nom',$nom,PDO::PARAM_STR);
+        $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
+        $prep->bindValue(':adresse',$adresse,PDO::PARAM_STR);
+        $prep->bindValue(':ville',$ville,PDO::PARAM_STR);
+        $prep->bindValue(':code',$code,PDO::PARAM_STR);
+        $prep->bindValue(':email',$email,PDO::PARAM_STR);
+        $prep->bindValue(':birthdate',$birthdate,PDO::PARAM_STR);
+        $prep->bindValue(':cosplay',$cosplay,PDO::PARAM_STR);
+        $prep->bindValue(':mercredi',$mercredi,PDO::PARAM_STR);
+        $prep->bindValue(':jeudi',$jeudi,PDO::PARAM_STR);
+        $prep->bindValue(':vendredi',$vendredi,PDO::PARAM_STR);
+        $prep->bindValue(':samedi',$samedi,PDO::PARAM_STR);
+        $prep->bindValue(':dimanche',$dimanche,PDO::PARAM_STR);
+        $prep->bindValue(':validation',$validation,PDO::PARAM_INT);
+        $prep->bindValue(':id',$id,PDO::PARAM_INT);
+
+        //Posté
+        $prep->execute();
 
 
 }
+
+?>
