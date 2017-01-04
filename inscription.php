@@ -26,13 +26,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST")
 {
     /* vérification de chaque post pour savoir si l'information à correctement été envoyé ou non.*/
     if (empty($_POST["prenom"]))
-    {
-        $firstnameErr = "Prenom est requis";
-    }
-    else
-    {
-        $prenom = test_input($_POST["prenom"]);
-        if (!preg_match("/^[a-zA-Z ]*$/",$prenom))
+        {
+            $firstnameErr = "Prenom est requis";
+        }
+        else
+        {
+            $prenom = test_input($_POST["prenom"]);
+            if (!preg_match("/^[a-zA-Z ]*$/",$prenom))
         {
             $firstnameErr = "Only letters and white space allowed";
         }
@@ -188,19 +188,6 @@ function test_input($data) {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!-- Cette Partie est le navbar, il contient une image et indique sur quelle page on se trouve
     il n'y a rien de bien compliqué, c'est juste surtout des classes bootstraps-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
@@ -217,7 +204,7 @@ function test_input($data) {
             <ul class="nav navbar-nav">
                 <li><a href="index.php">Accueil</a></li>
                 <li class="active"><a href="#">Inscription</a></li>
-                <li><a href="pageadmin.php">Login admin</a></li>
+                <li><a href="check.php">Login admin</a></li>
             </ul>
         </div>
     </div>
