@@ -28,6 +28,7 @@ catch(PDOException $e) {
 
 switch($method){
     case 'GET' :
+
         if($id!=null){
             $req = "SELECT * FROM inscription WHERE id = $id";
             $prep = $bdd->prepare($req);
@@ -44,15 +45,14 @@ switch($method){
         break;
 
     case 'DELETE' :
-        $req = 'DELETE FROM inscription WHERE id = $id';
+        $req = "DELETE FROM inscription WHERE id = $id";
         $prep = $bdd->prepare($req);
-        $prep->bindValue(':id',$id,PDO::PARAM_INT);
         $prep->execute();
         break;
 
     case 'POST' :
-
         //Recuperé Le Json $input
+
         //Traduire Le Json
         $prenom=$input->prenom;
         $nom=$input->nom;
@@ -146,8 +146,8 @@ switch($method){
         if($err == "erreur : ") {
 
             //Re formulé sous une requet SQL
-             $req = 'INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
-             VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);';
+             $req = "INSERT INTO inscription(genre, prenom, nom, adresse, ville, code, email, birthdate, cosplay, mercredi, jeudi, vendredi, samedi, dimanche)
+             VALUES (:genre, :prenom, :nom, :adresse, :ville, :code, :email, :birthdate, :cosplay, :mercredi, :jeudi, :vendredi, :samedi, :dimanche);";
             $prep = $bdd->prepare($req);
     
             $prep->bindValue(':genre',$genre,PDO::PARAM_INT);
@@ -279,7 +279,7 @@ switch($method){
 
 
         //update en sql
-        $req = 'UPDATE inscription SET
+        $req = "UPDATE inscription SET
         prenom = :prenom, 
         nom = :nom, 
         genre = :genre,
@@ -295,7 +295,7 @@ switch($method){
         samedi = :samedi, 
         dimanche = :dimanche,
         validation = :validation
-        WHERE id= :id;';
+        WHERE id= :id;";
         $prep = $bdd->prepare($req);
     
     
